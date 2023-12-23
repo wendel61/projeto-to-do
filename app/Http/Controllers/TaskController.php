@@ -43,7 +43,15 @@ class TaskController extends Controller
     }
 
 
+    public function checkerBox(Request $request)
+    {
+        $checker = Task::findOrFail($request->id);
+        $checker->is_done = $request->is_done;
+        $checker->save();
 
+            return ['success'=> true];
+
+    }
 
     public function edit(Request $request)
     {

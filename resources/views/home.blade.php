@@ -55,4 +55,31 @@
 
     </section>
 
+    <script>
+        async function checkerInput(obj)
+        {
+            let is_done = obj.checked;
+            let id = obj.dataset.id;
+            let url = '{{route('checker.box')}}';
+
+            let resultJson  =  await fetch(url,{
+                    method: 'POST',
+                    headers: {
+                        'Content-type':'application/json',
+                        'accept': 'application/json'
+            },
+                body: JSON.stringify({is_done, id, _token: '{{csrf_token()}}'}),
+        });
+
+            let result = await resultJson.json();
+            if(result.success){
+                alert('Tarefa atualizada');
+            }else{
+               obj.checked = !obj.checked;
+            }
+
+        }
+
+    </script>
+
 </x-layout>

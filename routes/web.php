@@ -29,3 +29,5 @@ Route::post('/register/user', [AuthController::class, 'register_user'])->name('r
 Route::post('/login/user', [AuthController::class, 'login_user'])->name('login.user');
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout.user');
+
+Route::post('/checked', [TaskController::class, 'checkerBox'])->name('checker.box')->middleware('auth');
