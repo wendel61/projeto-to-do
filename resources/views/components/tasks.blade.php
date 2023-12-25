@@ -2,7 +2,7 @@
 
         <div class="task">
             <div class="title">
-                <input type="checkbox" name="" id="" onchange="checkerInput(this)" data-id="{{$data->id}}" {{$data['is_done'] ? "checked" : null}} >
+                <input type="checkbox" name="" id="checkerId" onchange="checkerInput(this)" data-id="{{$data->id}}" {{$data['is_done'] ? "checked" : null}} >
                 <h3>{{$data['title']}}</h3>
             </div>
 

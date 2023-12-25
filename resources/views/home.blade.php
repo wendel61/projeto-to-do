@@ -14,9 +14,16 @@
             <h3 class="title_header">Progresso do Dia</h3>
             <div class="lineHeader"></div>
              <div class="graph_header-data">
-                <img src="/assets/images/icon-prev.png" alt="">
-                27 Nov
+
+                <a href="{{route('home',$data['prev_date_btn'])}}">
+
+                    <img src="/assets/images/icon-prev.png" alt="">
+                </a>
+
+                    {{$data['date_as_string']}}
+                    <a href="{{route('home',$data['next_date_btn'])}}">
                 <img src="/assets/images/icon-next.png" alt="">
+            </a>
              </div>
         </div>
         <div class="graph_header-subtitle">Tarefa: 3/6</div>
@@ -33,8 +40,10 @@
     <section class="list">
 
         <div class="list-header">
-            <select name="" id="" class="list_header-select">
-                <option value="1">Todas as tarefas</option>
+            <select name="" id="" class="list_header-select" onchange="taskSelect(this)">
+                <option value="show-all">Todas as tarefas</option>
+                <option value="show-pending">Tarefas pendentes</option>
+                <option value="show-done">Tarefas concluidas</option>
             </select>
 
 
@@ -42,7 +51,7 @@
         <div class="task_list">
 
 
-            @foreach ($data as $task)
+            @foreach ($data['task'] as $task)
 
             <x-tasks :data=$task/>
 
@@ -56,6 +65,45 @@
     </section>
 
     <script>
+        function taskSelect(item)
+        {
+            showItens()
+
+            if(item.value == 'show-pending'){
+                let input = document.querySelectorAll('.task').forEach(element => {
+                    if(element.children[0].children[0].checked == true){
+                        element.style.display = "none";
+
+                    }
+                });
+
+
+
+
+            }else if(item.value == 'show-done'){
+
+                showItens()
+                let input = document.querySelectorAll('.task').forEach(element => {
+                    if(element.children[0].children[0].checked == false){
+                        element.style.display = "none";
+
+                    }
+                })
+
+            }else{
+                showItens()
+            }
+        }
+
+
+        function showItens()
+        {
+            let task = document.querySelectorAll('.task').forEach(element => {
+                element.style.display = "flex";
+            })
+        }
+
+
         async function checkerInput(obj)
         {
             let is_done = obj.checked;
